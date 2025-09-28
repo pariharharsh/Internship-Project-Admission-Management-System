@@ -1,0 +1,219 @@
+-- institute
+INSERT INTO institute (institute_id, institute_name, location, type, affiliated_university, established_year) VALUES
+('INST001', 'Tech Institute of Technology', 'GTB Nagar', 'Private', 'Delhi University', 2005);
+
+-- faculty
+INSERT INTO faculty (facultyID, InstituteID, FacultyName, FacultyCode, DeanName, ContactEmail, FacultyOfficeLocation) VALUES
+('FAC001', 'INST001', 'Engineering', 'ENG', 'Dr. A. Kumar', '9874365115','eng@tech.edu.in', 'Block A, Floor 2'),
+('FAC002', 'INST001', 'Science', 'SCI', 'Dr.B Mehta', '7896354781','sci@tech.edu.in', 'Block B, Floor 1'),
+('FAC003', 'INST001', 'Humanities', 'HUM', 'Dr.C.Singh', '5987415698','hum@tech.edu.in', 'Block C, Floor 3'),
+('FAC004', 'INST001', 'Business Studies', 'BUS', 'Dr.D.Joshi', '9874582463','bus@tech.edu.in', 'Block D, Floor 2'),
+('FAC005', 'INST001', 'Law', 'LAW', 'Dr. E.Nair', '7894587145','law@tech.edu.in', 'Block E, Floor 4'),
+('FAC006', 'INST001', 'Medical Science', 'MED', 'Dr. F.Roy', '8748521483','med@tech.edu.in', 'Block F, Floor 1'),
+('FAC007', 'INST001', 'Fine Arts', 'FIN', 'Dr.G.Desai', '7824581465','fin@tech.edu.in', 'Block G, Floor 2'),
+('FAC008', 'INST001', 'Agriculture', 'AGR', 'Dr. H.Sinha', '9847854125','agr@tech.edu.in', 'Block H, Floor 4'),
+('FAC009', 'INST001', 'Psychology', 'PSY', 'Dr. M.Murgan', '5569855236','psy@tech.edu.in', 'Block M, Floor 5'),
+('FAC010', 'INST001', 'Architecture','ARC', 'Dr. JS.Parihar','8955265563', 'psy@tech.edu.in', 'Block K, Floor 4');
+
+
+INSERT INTO degree (degree_id, faculty_id, Degree_name, level, duration, credit_requirement) VALUES
+('DEG01', 'FAC001', 'B.Tech', 'UG', 4, 160),
+('DEG02', 'FAC002', 'B.Sc', 'UG', 3, 140),
+('DEG03', 'FAC003', 'B.A', 'UG', 3, 130),
+('DEG04', 'FAC004', 'BBA', 'UG', 3, 140),
+('DEG05', 'FAC005', 'LL.B', 'UG', 3, 150),
+('DEG06', 'FAC006', 'MBBS', 'UG', 5, 180),
+('DEG07', 'FAC007', 'BFA', 'UG', 3, 120),
+('DEG08', 'FAC008', 'B.Sc Agriculture', 'UG', 4, 160),
+('DEG09', 'FAC001', 'M.Tech', 'PG', 2, 80),
+('DEG10', 'FAC002', 'M.Sc', 'PG', 2, 80),
+('DEG11', 'FAC003', 'M.A', 'PG', 2, 80),
+('DEG12', 'FAC004', '23', 'PG', 2, 90),
+('DEG13', 'FAC005', 'LL.M', 'PG', 2, 80),
+('DEG14', 'FAC006', 'MFA', 'PG', 2, 90),
+('DEG15', 'FAC001', 'Diploma in AI', 'Diploma', 1, 40),
+('DEG16', 'FAC002', 'Diploma in Lab Tech', 'Diploma', 1, 40),
+('DEG17', 'FAC008', 'Dimploma in Farming', 'Diploma', 1, 45),
+('DEG18', 'FAC003', 'Certificate in English', 'Certificate', 0.5, 20),
+('DEG19', 'FAC002', 'Certificate in Nursing', 'Certificate', 0.5, 20);
+
+
+INSERT INTO program (program_id, degree_id, program_name, specialization, intake_capacity, accreditation_status, duration, program_fee) VALUES
+('PRO001', 'DEG01', 'Computer Science Engineering', 'AI & ML', 60, 'Accredited', 4, 65000),
+('PRO002', 'DEG02', 'M.Tech in Data Science', 'Big Data', 40, 'Accredited', 2, 75000),
+('PRO003', 'DEG03', 'M.Sc. In Physics', 'Quantum Mechanics', 35, 'Accredited', 2, 85000),
+('PRO004', 'DEG04', 'M.A. in English Literature', 'Postcolonial Studies', 30, 'Accredited', 2, 45000),
+('PRO005', 'DEG05', 'Diploma in AI', 'Machine Learning', 25, 'Accredited', 1, 95000),
+('PRO006', 'DEG06', 'Diploma in Lab Technology', 'Pathology', 30, 'Accredited', 1, 120000),
+('PRO007', 'DEG07', 'Certificate In Spoken English', 'communication Skills', 50, 'Accredited', 0.5, 35000),
+('PRO008', 'DEG08', 'Certificate in Primary Nursing', 'community Health', 40, 'Accredited', 0.5, 65500),
+('PRO009', 'DEG09', 'Certificate in Psychology', 'community Psychology', 40, 'Accredited', 0.5, 65500),
+('PRO010', 'DEG10', 'Certificate in Architecture', 'community Architecture', 40, 'Accredited', 0.5, 65500);
+
+
+
+
+
+-- application
+INSERT INTO application (application_id, applicant_id, faculty_id, program_id, application_date, status) VALUES
+('APP001', 'STU001', 'FAC001', 'PRO002', '2025-06-03', 'VERIFIED'),
+('APP002', 'STU002', 'FAC002', 'PRO003', '2025-04-24', 'VERIFIED'),
+('APP003', 'STU003', 'FAC003', 'PRO004', '2025-05-19', 'PENDING'),
+('APP004', 'STU004', 'FAC004', 'PRO004', '2025-05-12', 'REJECTED'),
+('APP005', 'STU005', 'FAC005', 'PRO005', '2025-02-12', 'VERIFIED'),
+('APP006', 'STU006', 'FAC006', 'PRO001', '2025-03-24', 'PENDING'),
+('APP007', 'STU007', 'FAC007', 'PRO007', '2025-01-17', 'VERIFIED'),
+('APP008', 'STU008', 'FAC008', 'PRO007', '2025-03-13', 'PENDING'),
+('APP009', 'STU009', 'FAC009', 'PRO008', '2025-02-12', 'VERIFIED'),
+('APP010', 'STU010', 'FAC010', 'PRO009', '2025-02-20', 'VERIFIED');
+
+
+-- academic_details
+INSERT INTO academic_details (registration_id, application_id, qualification, board, grade_system, percentage, Cgpa, passing_year) VALUES
+('REG001', 'APP001', '10th', 'CBSE', 'CGPA', 0, 8.8, 2021),
+('REG002', 'APP001', '12th', 'CBSE', 'Percentage', 91.5, 0, 2020),
+('REG003', 'APP002', '10th', 'ICSE', 'CGPA', 0, 9.2, 2021),
+('REG004', 'APP002', '12th', 'ISC', 'CGPA', 0, 8.8, 2021),
+('REG005', 'APP003', '10th', 'UTTRAKHAND BOARD', 'Percentage', 95, 0, 2019),
+('REG006', 'APP003', '12th', 'UTTRAKHAND BOARD', 'Percentage', 85, 0, 2020),
+('REG007', 'APP004', '10th', 'UP BOARD', 'CGPA', 0, 9.4, 2022),
+('REG008', 'APP004', '12th', 'UP BOARD', 'Percentage', 88, 0, 2023),
+('REG009', 'APP005', '10th', 'CBSE', 'CGPA', 0, 8.4, 2020),
+('REG010', 'APP005', '12th', 'CBSE', 'Percentage', 95, 0, 2018);
+
+-- documents
+INSERT INTO documents (document_id, application_id, document_type, document_path, file_path) VALUES
+('DOC001', 'APP001', 'Marksheet', '/docs/view.pdf', '//fileserver/edu_docs/view.pdf'),
+('DOC002', 'APP002', 'Marksheet', '/docs/future.pdf', '//fileserver/edu_docs/future.pdf'),
+('DOC003', 'APP003', 'Photo', '/docs/these.pdf', '//fileserver/edu_docs/these.pdf'),
+('DOC004', 'APP004', 'ID Proof', '/docs/moment.pdf', '//fileserver/edu_docs/moment.pdf'),
+('DOC005', 'APP005', 'Marksheet', '/docs/moment.pdf', '//fileserver/edu_docs/moment.pdf'),
+('DOC006', 'APP006', 'Marksheet', '/docs/prove.pdf', '//fileserver/edu_docs/prove.pdf'),
+('DOC007', 'APP007', 'Marksheet', '/docs/religious.pdf', '//fileserver/edu_docs/religious.pdf'),
+('DOC008', 'APP008', 'Photo', '/docs/two.pdf', '//fileserver/edu_docs/two.pdf'),
+('DOC009', 'APP009', 'Photo', '/docs/defense.pdf', '//fileserver/edu_docs/defense.pdf'),
+('DOC010', 'APP010', 'ID Proof', '/docs/occur.pdf', '//fileserver/edu_docs/occur.pdf');
+
+-- app_fee_payment
+INSERT INTO app_fee_payment (document_id, fk_application_id, document_type, document_path, file_path) VALUES
+('DOC001', 'APP001', 'Marksheet', '/docs/view.pdf', '//fileserver/edu_docs/view.pdf'),
+('DOC002', 'APP002', 'Marksheet', '/docs/future.pdf', '//fileserver/edu_docs/future.pdf'),
+('DOC003', 'APP003', 'Photo', '/docs/these.pdf', '//fileserver/edu_docs/these.pdf'),
+('DOC004', 'APP004', 'ID Proof', '/docs/moment.pdf', '//fileserver/edu_docs/moment.pdf'),
+('DOC005', 'APP005', 'Marksheet', '/docs/moment.pdf', '//fileserver/edu_docs/moment.pdf'),
+('DOC006', 'APP006', 'Marksheet', '/docs/prove.pdf', '//fileserver/edu_docs/prove.pdf'),
+('DOC007', 'APP007', 'Marksheet', '/docs/religious.pdf', '//fileserver/edu_docs/religious.pdf'),
+('DOC008', 'APP008', 'Photo', '/docs/two.pdf', '//fileserver/edu_docs/two.pdf'),
+('DOC009', 'APP009', 'Photo', '/docs/defense.pdf', '//fileserver/edu_docs/defense.pdf'),
+('DOC010', 'APP010', 'ID Proof', '/docs/occur.pdf', '//fileserver/edu_docs/occur.pdf');
+
+
+
+
+
+
+-- program_fees
+INSERT INTO program_fees (fee_transaction_id, fk_program_id, fk_applicant_id, fee_amount, fee_calendar, coupon_code, discounted_fee) VALUES
+('FTXN001', 'PRO001', 'STU001', 65000, 'Annual', 'No coupon code', 65000),
+('FTXN002', 'PRO002', 'STU002', 75000, 'Annual', 'DISC50_002', 37500),
+('FTXN003', 'PRO003', 'STU003', 85000, 'Annual', 'DISC50_003', 42500),
+('FTXN004', 'PRO004', 'STU004', 45000, 'Annual', 'DISC50_004', 22500),
+('FTXN005', 'PRO005', 'STU005', 95000, 'Annual', 'DISC50_005', 47500),
+('FTXN006', 'PRO006', 'STU006', 120000, 'Annual', '!!!Not allocate!!!', 60000),
+('FTXN007', 'PRO007', 'STU007', 35000, 'Annual', '!!!Not allocate!!!', 17500),
+('FTXN008', 'PRO008', 'STU008', 65500, 'Annual', '!!!Not allocate!!!', 32750),
+('FTXN009', 'PRO009', 'STU009', 65500, 'Annual', '!!!Not allocate!!!', 31750),
+('FTXN010', 'PRO010', 'STU010', 65500, 'Annual', '!!!Not allocate!!!', 33750);
+
+
+
+INSERT INTO applicant (applicant_id, full_name, gender, dob, father_name, mother_name, category, email, phone_no, address, program_id, coupon_id, photo_url, emergency_contanct) VALUES
+('STU001', 'Riya Sharma', 'Female', '2005-05-04', 'ABC Sharma', 'XYZ Sharma', 'General', 'riya@yahoo.com', '9955800874', '578 delhi, NC 34644.', 'PRO001', 'No coupon code', 'photo_STU001.pdf', '9919589441'),
+('STU002', 'Aarav Mehta', 'Male', '2004-04-07', 'ABC Mehta', 'XYZ Mehta', 'ST', 'aarave@garrett.com', '9950987735', '5789 delhi, NC 34645.', 'PRO002', 'DISC50_002', 'photo_STU002.pdf', '9867381688'),
+('STU003', 'Priya Verma', 'Female', '2006-02-11', 'ABC Verma', 'XYZ Verma', 'SC', 'priya@gmail.com', '9920228141', '579 delhi, NC 34644.', 'PRO003', 'DISC50_003', 'photo_STU003.pdf', '9813435895'),
+('STU004', 'Rohan Kapoor', 'Male', '2004-07-11', 'ABC Kapoor', 'XYZ Kapoor', 'OBC', 'rohan@gmail.com', '9911332836', '5790 delhi, NC 34645.', 'PRO004', 'DISC50_004', 'photo_STU004.pdf', '9815046584'),
+('STU005', 'Neha Agarwal', 'Female', '2004-10-04', 'ABC Agarwal', 'XYZ Agarwal', 'OBC', 'neha@gmail.com', '9899668270', '580 delhi, NC 34644.', 'PRO004', 'DISC50_005', 'photo_STU005.pdf', '9977337056'),
+('STU006', 'Ananya Singh', 'Female', '2004-07-09', 'ABC Singh', 'XYZ Singh', 'ST', 'ananya@gmail.com', '9818744480', '5791 delhi, NC 34645.', 'PRO005', '!!!Not allocate!!!', 'photo_STU006.pdf', '9835974606'),
+('STU007', 'Kabir Joshi', 'Male', '2006-04-12', 'ABC Joshi', 'XYZ Joshi', 'SC', 'kabir@yayoo.com', '9839037226', '581 delhi, NC 34644.', 'PRO001', '!!!Not allocate!!!', 'photo_STU007.pdf', '9974660826'),
+('STU008', 'Aditya Nair', 'Male', '2004-06-02', 'ABC Nair', 'XYZ Nair', 'ST', 'aditya@gmail.com', '9852726492', '5792 delhi, NC 34645.', 'PRO007', '!!!Not allocate!!!', 'photo_STU008.pdf', '9804677932'),
+('STU009', 'Isha Malhotra', 'Female', '2005-05-03', 'ABC Malhotra', 'XYZ Malhotra', 'ST', 'isha@yayoo.com', '9815318609', '582 delhi, NC 34644.', 'PRO007', '!!!Not allocate!!!', 'photo_STU009.pdf', '9803261671'),
+('STU010', 'Rohan Kapoor', 'Male', '2004-10-05', 'ABC Kapoor', 'XYZ Kapoor', 'SC', 'rohan@gmail.com', '9833537317', '5793 delhi, NC 34645.', 'PRO008', '!!!Not allocate!!!', 'photo_STU010.pdf', '9806147716'),
+('STU011', 'Ranveer Deshmukh', 'Male', '2005-12-09', 'ABC Deshmukh', 'XYZ Deshmukh', 'General', 'ranveer@yahoo.com', '9857053032', '583 delhi, NC 34644.', 'PRO009', '!!!Not allocate!!!', 'photo_STU011.pdf', '9800262340');
+
+
+
+-- login
+INSERT INTO login (login_id, fk_applicant_id, user_name, password, role) VALUES
+(1, 'STU001', 'ysullivan', 'P3zO0vIbhJ8', 'Student'),
+(2, 'STU002', 'ypage', 'X2Ctq7QKG3X', 'Student'),
+(3, 'STU003', 'rjones', 'xNpAeM5fhCr', 'Student'),
+(4, 'STU004', 'loganmelissa', 'hTmlQH0gHEB', 'Student'),
+(5, 'STU005', 'carlsonholly', 'lWVvM614d6p', 'Student'),
+(6, 'STU006', 'joanne84', 'W6gdE6t7pX1', 'Student'),
+(7, 'STU007', 'hensontroy', 'TnRoLN7CIvg', 'Student'),
+(8, 'STU008', 'robin14', 'f365I2Jky4a', 'Student'),
+(9, 'STU009', 'monica23', 'uwn1PG7YUSc', 'Student'),
+(10,'STU010', 'thouston', '0ugGeBV5R65', 'Student');
+
+
+-- admission_test
+INSERT INTO admission_test (test_id, test_type, program_id, test_date, max_marks, min_qulifying_marks, test_fee) VALUES
+('TST001', 'ONLINE', 'PRO001', '2025-01-06', 100, 45, 250),
+('TST002', 'ONLINE', 'PRO002', '2025-01-07', 100, 45, 250),
+('TST003', 'ONLINE', 'PRO003', '2025-01-08', 100, 45, 250),
+('TST004', 'ONLINE', 'PRO004', '2025-01-09', 100, 45, 250),
+('TST005', 'ONLINE', 'PRO005', '2025-01-10', 100, 45, 250),
+('TST006', 'ONLINE', 'PRO006', '2025-01-11', 100, 45, 250),
+('TST007', 'ONLINE', 'PRO007', '2025-01-12', 100, 45, 250),
+('TST008', 'ONLINE', 'PRO008', '2025-01-13', 100, 45, 250),
+('TST009', 'ONLINE', 'PRO009', '2025-01-14', 100, 45, 250),
+('TST010', 'ONLINE', 'PRO010', '2025-01-15', 100, 45, 250);
+
+
+-- test_fee_payment
+INSERT INTO test_fee_payment (test_payment_id, fk_applicant_id, fk_test_id, amount_paid, transaction_id, payment_date, payment_method, payment_status, receipt_url) VALUES
+('TP001', 'STU001', 'TST001', 125, 'TTXN001', '2025-02-28', 'Card', 'PAID', 'receip_stu001.pdf'),
+('TP002', 'STU002', 'TST001', 125, 'TTXN002', '2025-01-03', 'NetBanking', 'PAID', 'receip_stu002.pdf'),
+('TP003', 'STU003', 'TST001', 125, 'TTXN003', '2025-05-28', 'NetBanking', 'PAID', 'receip_stu003.pdf'),
+('TP004', 'STU004', 'TST001', 125, 'TTXN004', '2025-06-13', 'NetBanking', 'PAID', 'receip_stu004.pdf'),
+('TP005', 'STU005', 'TST001', 125, 'TTXN005', '2025-03-29', 'UPI', 'PAID', 'receip_stu005.pdf'),
+('TP006', 'STU006', 'TST001', 125, 'TTXN006', '2025-03-06', 'NetBanking', 'PAID', 'receip_stu006.pdf'),
+('TP007', 'STU007', 'TST001', 125, 'TTXN007', '2025-06-17', 'Card', 'PAID', 'receip_stu007.pdf'),
+('TP008', 'STU008', 'TST001', 125, 'TTXN008', '2025-02-01', 'Card', 'PAID', 'receip_stu008.pdf'),
+('TP009', 'STU009', 'TST001', 125, 'TTXN009', '2025-06-05', 'UPI', 'PAID', 'receip_stu009.pdf'),
+('TP010', 'STU010', 'TST001', 125, 'TTXN010', '2025-01-29', 'NetBanking', 'PAID', 'receip_stu010.pdf');
+
+-- test_completion_status
+INSERT INTO test_completion_status (status_id, fk_applicant_id, fk_test_id, score_obtained, result_status, rank) VALUES
+('STS001', 'STU001', 'TST001', 85, 'PASS', 2),
+('STS002', 'STU002', 'TST001', 32, 'FAIL', NULL),
+('STS003', 'STU003', 'TST001', 90, 'PASS', 1),
+('STS004', 'STU004', 'TST001', 78, 'PASS', 3),
+('STS005', 'STU005', 'TST001', 45, 'PASS', 7),
+('STS006', 'STU006', 'TST001', 66, 'PASS', 4),
+('STS007', 'STU007', 'TST001', 39, 'FAIL', NULL),
+('STS008', 'STU008', 'TST001', 72, 'PASS', 5),
+('STS009', 'STU009', 'TST001', 51, 'PASS', 6),
+('STS010', 'STU010', 'TST001', 30, 'FAIL', NULL);
+
+-- form_completion_status
+INSERT INTO form_completion_status (completion_id, application_id, status, application_form, receipt_url) VALUES
+('TECH001', 'APP001', 'Successful', 'ApplicationForm_TECH001_APP001.pdf', 'receipt_TECH001.pdf'),
+('TECH002', 'APP002', 'Successful', 'ApplicationForm_TECH002_APP002.pdf', 'receipt_TECH002.pdf'),
+('TECH003', 'APP003', 'Successful', 'ApplicationForm_TECH003_APP003.pdf', 'receipt_TECH003.pdf'),
+('TECH004', 'APP004', 'Successful', 'ApplicationForm_TECH004_APP004.pdf', 'receipt_TECH004.pdf'),
+('TECH005', 'APP005', 'Successful', 'ApplicationForm_TECH005_APP005.pdf', 'receipt_TECH005.pdf'),
+('TECH006', 'APP006', 'Successful', 'ApplicationForm_TECH006_APP006.pdf', 'receipt_TECH006.pdf'),
+('TECH007', 'APP007', 'Successful', 'ApplicationForm_TECH007_APP007.pdf', 'receipt_TECH007.pdf'),
+('TECH008', 'APP008', 'Successful', 'ApplicationForm_TECH008_APP008.pdf', 'receipt_TECH008.pdf'),
+('TECH009', 'APP009', 'Successful', 'ApplicationForm_TECH009_APP009.pdf', 'receipt_TECH009.pdf'),
+('TECH010', 'APP010', 'Successful', 'ApplicationForm_TECH010_APP010.pdf', 'receipt_TECH010.pdf');
+
+-- coupon
+INSERT INTO coupon (coupon_id, coupon_code, discount_percentage, category_eligibility, is_active, fk_applicant_id) VALUES
+('COP001', 'No coupon code', 50, 'General', TRUE, 'STU001'),
+('COP002', 'DISC50_002', 50, 'ST', TRUE, 'STU002'),
+('COP003', 'DISC50_003', 50, 'SC', TRUE, 'STU003'),
+('COP004', 'DISC50_004', 50, 'OBC', TRUE, 'STU004'),
+('COP005', 'DISC50_005', 50, 'OBC', TRUE, 'STU005');
+

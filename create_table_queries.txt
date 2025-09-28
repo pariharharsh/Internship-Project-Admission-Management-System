@@ -1,0 +1,400 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema admission_report
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema admission_report
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `admission_report` DEFAULT CHARACTER SET utf8 ;
+USE `admission_report` ;
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`institute`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`institute` (
+  `idinstitute_id` VARCHAR(45) NOT NULL,
+  `institute_name` VARCHAR(45) NULL,
+  `location` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NULL,
+  `affiliated_university` VARCHAR(45) NULL,
+  `established_year` YEAR(500) NULL,
+  PRIMARY KEY (`idinstitute_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`faculty`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`faculty` (
+  `faculty_id` VARCHAR(45) NOT NULL,
+  `fk_institute_id` VARCHAR(45) NULL,
+  `dean_name` VARCHAR(45) NULL,
+  `faculty_name` VARCHAR(45) NULL,
+  `faculty_code` VARCHAR(45) NULL,
+  `faculty_office_location` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `contact_no` VARCHAR(45) NULL,
+  PRIMARY KEY (`faculty_id`),
+  CONSTRAINT `fk_institute_id`
+    FOREIGN KEY (`fk_institute_id`)
+    REFERENCES `admission_report`.`institute` (`idinstitute_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `facultycol_UNIQUE` ON `admission_report`.`faculty` (`dean_name` ASC) VISIBLE;
+
+CREATE INDEX `fk_institute_id_idx` ON `admission_report`.`faculty` (`fk_institute_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`degree`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`degree` (
+  `degree_id` VARCHAR(45) NOT NULL,
+  `fk_faculty_id` VARCHAR(45) NULL,
+  `degree_name` VARCHAR(45) NULL,
+  `leve` VARCHAR(45) NULL,
+  `duration` VARCHAR(45) NULL,
+  `credit_requirment` INT NULL,
+  PRIMARY KEY (`degree_id`),
+  CONSTRAINT `fk_faculty_id`
+    FOREIGN KEY (`fk_faculty_id`)
+    REFERENCES `admission_report`.`faculty` (`faculty_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `faculty_id_UNIQUE` ON `admission_report`.`degree` (`fk_faculty_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`program`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`program` (
+  `program_id` VARCHAR(45) NOT NULL,
+  `fk_degree_id` VARCHAR(45) NULL,
+  `program_name` VARCHAR(45) NULL,
+  `specialization` VARCHAR(45) NULL,
+  `intate_capacity` INT NULL,
+  `accreditation_satatus` VARCHAR(45) NULL,
+  `duration` VARCHAR(45) NULL,
+  PRIMARY KEY (`program_id`),
+  CONSTRAINT `fk_degree_id`
+    FOREIGN KEY (`fk_degree_id`)
+    REFERENCES `admission_report`.`degree` (`degree_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_degree_id_idx` ON `admission_report`.`program` (`fk_degree_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`program_fees`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`program_fees` (
+  `fee_id` VARCHAR(45) NOT NULL,
+  `fk_program_id` VARCHAR(45) NULL,
+  `fee_amount` decimal(50) NULL,
+  PRIMARY KEY (`fee_id`),
+  CONSTRAINT `fk_program_id`
+    FOREIGN KEY (`fk_program_id`)
+    REFERENCES `admission_report`.`program` (`program_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_program_id_idx` ON `admission_report`.`program_fees` (`fk_program_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`applicant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`applicant` (
+  `applicant_id` VARCHAR(45) NOT NULL,
+   `fk_program_id1` VARCHAR(45) NULL,
+  `full_name` VARCHAR(45) NULL,
+  `gender` VARCHAR(45) NULL,
+  `dob` VARCHAR(45) NULL,
+  `father_name` VARCHAR(45) NULL,
+  `mother_name` VARCHAR(45) NULL,
+  `category` VARCHAR(45) NULL,
+   `emergency_contact` INT(100) NULL,
+  `photo` VARCHAR(500) NULL,
+  PRIMARY KEY (`applicant_id`),
+  CONSTRAINT `fk_program_id1`
+    FOREIGN KEY (`fk_program_id1`)
+    REFERENCES `admission_report`.`program` (`program_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_program_id_idx` ON `admission_report`.`applicant` (`fk_program_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`admission_test`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`admission_test` (
+  `test_id` VARCHAR(45) NOT NULL,
+  `test_type` VARCHAR(45) NULL,
+  `fk_program_id` VARCHAR(45) NULL,
+  `max_marks` DECIMAL(50) NULL,
+  `min_qualifying_marks` DECIMAL(50) NULL,
+  PRIMARY KEY (`test_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`application`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`application` (
+  `application_id` VARCHAR(45) NOT NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  `fk_program_id` VARCHAR(45) NULL,
+  `fk_faculty_id` VARCHAR(45) NULL,
+  `application_date` DATE NULL,
+  PRIMARY KEY (`application_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_program_id`
+    FOREIGN KEY (`fk_program_id`)
+    REFERENCES `admission_report`.`program` (`program_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_facult_id`
+    FOREIGN KEY (`fk_faculty_id`)
+    REFERENCES `admission_report`.`faculty` (`faculty_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`application` (`fk_applicant_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_program_id_idx` ON `admission_report`.`application` (`fk_program_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_facult_id_idx` ON `admission_report`.`application` (`fk_faculty_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`login_id`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`login_id` (
+  `login_id` VARCHAR(45) NOT NULL,
+  `user_name` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `role` VARCHAR(45) NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  PRIMARY KEY (`login_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`login_id` (`fk_applicant_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`test_fee_payment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`test_fee_payment` (
+  `test_payment_id` VARCHAR(45) NOT NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  `fk_test_id` VARCHAR(45) NULL,
+  `transaction_id` VARCHAR(45) NULL,
+  `payment_status` VARCHAR(45) NULL,
+  `receip_url` VARCHAR(500) NULL,
+  PRIMARY KEY (`test_payment_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_test_id`
+    FOREIGN KEY (`fk_test_id`)
+    REFERENCES `admission_report`.`admission_test` (`test_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`test_fee_payment` (`fk_applicant_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_test_id_idx` ON `admission_report`.`test_fee_payment` (`fk_test_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`test_comletion_status`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`test_comletion_status` (
+  `status_id` VARCHAR(45) NOT NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  `fk_test_id` VARCHAR(45) NULL,
+  `score_obrained` INT NULL,
+  `result_status` VARCHAR(45) NULL,
+  `rank` INT NULL,
+  PRIMARY KEY (`status_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_test_id`
+    FOREIGN KEY (`fk_test_id`)
+    REFERENCES `admission_report`.`admission_test` (`test_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`test_comletion_status` (`fk_applicant_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_test_id_idx` ON `admission_report`.`test_comletion_status` (`fk_test_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`academic_details`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`academic_details` (
+  `registration_id` VARCHAR(100) NOT NULL,
+  `fk_application_id` VARCHAR(100) NULL,
+  `qualification` VARCHAR(45) NULL,
+  `board` VARCHAR(45) NULL,
+  `grade_systm` VARCHAR(45) NULL,
+  `percentage` DECIMAL(50) NULL,
+  `cgpa` VARCHAR(45) NULL,
+  `passing_year` YEAR(555) NULL,
+  PRIMARY KEY (`registration_id`),
+  CONSTRAINT `fk_application_id`
+    FOREIGN KEY (`fk_application_id`)
+    REFERENCES `admission_report`.`application` (`application_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_application_id_idx` ON `admission_report`.`academic_details` (`fk_application_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`applicationfee_payment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`applicationfee_payment` (
+  `transaction_id` VARCHAR(500) NOT NULL,
+  `fk_application_id` VARCHAR(45) NULL,
+  `amount_paid` DECIMAL(551) NULL,
+  `payment_mode` VARCHAR(45) NULL,
+  `payment_status` VARCHAR(45) NULL,
+  `receip_url` VARCHAR(500) NULL,
+  PRIMARY KEY (`transaction_id`),
+  CONSTRAINT `fk_application_id`
+    FOREIGN KEY (`fk_application_id`)
+    REFERENCES `admission_report`.`application` (`application_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_application_id_idx` ON `admission_report`.`applicationfee_payment` (`fk_application_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`master_documents`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`master_documents` (
+  `mdocument_id` VARCHAR(50) NOT NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  `aadhar_card` INT(100) NULL,
+  `10thmarksheet` INT(20) NULL,
+  `10thcertificate` INT(20) NULL,
+  `12thmarksheet` INT(20) NULL,
+  `12thcertificate` INT(20) NULL,
+  `migrationcertificate` INT(20) NULL,
+  `castecertificate` INT(20) NULL,
+  `domicilecertificate` INT(20) NULL,
+  `test_result` INT(20) NULL,
+  `charactercertificate` INT(20) NULL,
+  PRIMARY KEY (`mdocument_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`master_documents` (`fk_applicant_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`form_completions_status`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`form_completions_status` (
+  `completion_id` VARCHAR(50) NOT NULL,
+  `fk_application_id` VARCHAR(45) NULL,
+  `status` VARCHAR(45) NULL,
+  `application_form` VARCHAR(450) NULL,
+  `receipt_url` VARCHAR(450) NULL,
+  PRIMARY KEY (`completion_id`),
+  CONSTRAINT `fk_application_id`
+    FOREIGN KEY (`fk_application_id`)
+    REFERENCES `admission_report`.`application` (`application_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_application_id_idx` ON `admission_report`.`form_completions_status` (`fk_application_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`coupons`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`coupons` (
+  `coupon_code` VARCHAR(50) NOT NULL,
+  `discount_percent` DECIMAL(50) NULL,
+  `isactive` VARCHAR(45) NULL,
+  `expiry_date` DATE NULL,
+  `coupon_id` VARCHAR(45) NULL,
+  `category_eligibilty` VARCHAR(45) NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  PRIMARY KEY (`coupon_code`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`coupons` (`fk_applicant_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `admission_report`.`documents`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admission_report`.`documents` (
+  `document_id` VARCHAR(50) NOT NULL,
+  `fk_applicant_id` VARCHAR(45) NULL,
+  `document_type` VARCHAR(45) NULL,
+  `file_path` VARCHAR(450) NULL,
+  `upload_date` DATE NULL,
+  PRIMARY KEY (`document_id`),
+  CONSTRAINT `fk_applicant_id`
+    FOREIGN KEY (`fk_applicant_id`)
+    REFERENCES `admission_report`.`applicant` (`applicant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_applicant_id_idx` ON `admission_report`.`documents` (`fk_applicant_id` ASC) VISIBLE;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
